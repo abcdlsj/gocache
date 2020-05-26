@@ -29,6 +29,7 @@ func New(maxEntries int) *Cache {
 	}
 }
 
+// 添加新的 key value
 func (c *Cache) Add(key Key, value Value) {
 	if c.cache == nil {
 		c.cache = make(map[Value]*list.Element)
