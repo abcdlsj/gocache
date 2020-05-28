@@ -1,11 +1,10 @@
-package gocache
+package main
 
 import (
 	"fmt"
+	"gocache"
 	"log"
 	"net/http"
-
-	"github.com/gocache/gocache"
 )
 
 var db = map[string]string{
