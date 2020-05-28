@@ -49,6 +49,7 @@ func GetGroup(name string) *Group {
 	return g
 }
 
+// 获取源数据
 func (g *Group) Get(key string) (ByteView, error) {
 	if key == "" {
 		return ByteView{}, fmt.Errorf("key is required")
@@ -63,6 +64,7 @@ func (g *Group) Get(key string) (ByteView, error) {
 }
 
 func (g *Group) load(key string) (value ByteView, err error) {
+	// in distribution system: with Func GetFromPeer from other node
 	return g.GetLocally(key)
 }
 
@@ -76,6 +78,8 @@ func (g *Group) GetLocally(key string) (ByteView, error) {
 	g.populateCache(key, value)
 	return value, nil
 }
+
+// 添加到 mainCache
 func (g *Group) populateCache(key string, value ByteView) {
 	g.mainCache.add(key, value)
 }
