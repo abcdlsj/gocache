@@ -1,5 +1,5 @@
-# A Simple Cache Write By Golang
-groupcache 
+# GoCache
+A Simple Cache Write By Golang.
 
-## timeline
-- 0520 完成了 lru 的编写，以及通过测试
+# References
+https://github.com/golang/groupcache
