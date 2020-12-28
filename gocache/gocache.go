@@ -7,6 +7,7 @@ import (
 	"sync"
 )
 
+// Cache 集合
 type Group struct {
 	name      string
 	getter    Getter
@@ -80,7 +81,7 @@ func (g *Group) RegisterPeers(peers PeerPicker) {
 func (g *Group) load(key string) (value ByteView, err error) {
 	// each key is only fetched once (either locally or remotely)
 	// regardless of the number of concurrent callers.
-	viewi, err := g.loader.DO(key, func() (interface{}, error) {
+	view, err := g.loader.DO(key, func() (interface{}, error) {
 		if g.peers != nil {
 			if peer, ok := g.peers.PickPeer(key); ok {
 				if value, err = g.getFromPeer(peer, key); err == nil {
@@ -94,7 +95,7 @@ func (g *Group) load(key string) (value ByteView, err error) {
 	})
 
 	if err == nil {
-		return viewi.(ByteView), nil
+		return view.(ByteView), nil
 	}
 	return
 }

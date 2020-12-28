@@ -6,7 +6,7 @@ type Cache struct {
 	// 最大节点数
 	MaxEntries int
 
-	// 回调函数
+	// 回调函数，如果缓存中没有则调用
 	OnEvicted func(key Key, value Value)
 
 	ll    *list.List
@@ -47,6 +47,7 @@ func (c *Cache) Add(key Key, value Value) {
 	}
 }
 
+// 从之前获得新的节点，如果存在，就把它移到链表头
 func (c *Cache) Get(key Key) (value Value, ok bool) {
 	if c.cache == nil {
 		return
@@ -58,6 +59,7 @@ func (c *Cache) Get(key Key) (value Value, ok bool) {
 	return
 }
 
+// 删除双向链表最后一个
 func (c *Cache) RemoveOldest() {
 	if c.cache == nil {
 		return
@@ -68,6 +70,7 @@ func (c *Cache) RemoveOldest() {
 	}
 }
 
+// 调用 removeElement() 删除一个节点
 func (c *Cache) Remove(key Key) {
 	if c.cache == nil {
 		return
